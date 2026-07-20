@@ -158,7 +158,10 @@ mod tests {
             },
             2,
         );
-        assert_eq!(next.interval_days, 1, "failed recall must reset interval to 1");
+        assert_eq!(
+            next.interval_days, 1,
+            "failed recall must reset interval to 1"
+        );
     }
 
     #[test]
@@ -195,7 +198,11 @@ mod tests {
             },
             5,
         );
-        assert!(approx(next.ease_factor, 2.6), "ease was {}", next.ease_factor);
+        assert!(
+            approx(next.ease_factor, 2.6),
+            "ease was {}",
+            next.ease_factor
+        );
         assert_eq!(next.interval_days, 16);
     }
 
@@ -237,7 +244,11 @@ mod tests {
             },
             3,
         );
-        assert!(approx(next.ease_factor, 2.36), "ease was {}", next.ease_factor);
+        assert!(
+            approx(next.ease_factor, 2.36),
+            "ease was {}",
+            next.ease_factor
+        );
     }
 
     #[test]
