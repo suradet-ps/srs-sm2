@@ -31,11 +31,6 @@
 //!
 //! clamped to never drop below [`MIN_EASE_FACTOR`] (1.3).
 //!
-//! # Cargo features
-//!
-//! * `std` (default) — enables `std`-only helpers. The core scheduling logic
-//!   does not need it; disable default features for a `no_std` build.
-//!
 //! # Examples
 //!
 //! ```
@@ -72,9 +67,6 @@
 
 #![no_std]
 #![cfg_attr(docsrs, feature(doc_cfg))]
-#![deny(missing_docs)]
-
-extern crate alloc;
 
 use libm::{fmax, round};
 
@@ -88,11 +80,23 @@ pub const MIN_EASE_FACTOR: f64 = 1.3;
 /// else. Clone and copy it freely; the library never reaches back into your
 /// data structures.
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Schedule {
     /// Days until the next review.
     pub interval_days: i32,
     /// `SuperMemo` ease factor (`>=` [`MIN_EASE_FACTOR`]).
     pub ease_factor: f64,
+}
+
+impl Default for Schedule {
+    /// A brand-new card, never reviewed: zero interval and the canonical
+    /// starting ease factor of 2.5 used throughout the SM-2 literature.
+    fn default() -> Self {
+        Self {
+            interval_days: 0,
+            ease_factor: 2.5,
+        }
+    }
 }
 
 /// Compute the next [`Schedule`] from the current one and a recall `quality`
@@ -103,6 +107,10 @@ pub struct Schedule {
 ///
 /// * `quality < 3` is treated as a failed recall: the interval resets to 1 day.
 /// * The ease factor is always updated and clamped to [`MIN_EASE_FACTOR`].
+///
+/// The resulting `interval_days` is rounded to the nearest day. For intervals
+/// larger than `i32::MAX` days the value saturates at `i32::MAX` rather than
+/// overflowing or panicking.
 ///
 /// # Examples
 ///
