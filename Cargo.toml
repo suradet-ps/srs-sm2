@@ -1,13 +1,13 @@
 [package]
 name = "srs-sm2"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.70"
 description = "Pure, no_std-compatible implementation of the SuperMemo SM-2 spaced-repetition scheduling algorithm."
 license = "MIT OR Apache-2.0"
 keywords = ["srs", "sm2", "spaced-repetition", "flashcards", "supermemo"]
 categories = ["algorithms", "science", "no-std"]
-repository = "https://github.com/vate-ps/srs-sm2"
+repository = "https://github.com/suradet-ps/srs-sm2"
 documentation = "https://docs.rs/srs-sm2"
 readme = "README.md"
 authors = ["Suradet Pratomsak <pharmacistsabot@gmail.com>"]
