@@ -14,7 +14,7 @@ authors = ["Suradet Pratomsak <pharmacistsabot@gmail.com>"]
 exclude = ["/.github", "/target"]
 
 [dependencies]
-libm = { version = "0.2", default-features = false }
+libm = { version = "0.2.16", default-features = false }
 serde = { version = "1", default-features = false, features = ["derive"], optional = true }
 
 [features]
